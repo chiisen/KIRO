@@ -23,15 +23,23 @@
   - 撰寫工具函數的單元測試
   - _需求: 1.4, 3.4, 4.4_
 
-- [ ] 3. 建立狀態管理系統
-- [ ] 3.1 實作 TodoContext 和 Reducer
+- [x] 3. 建立狀態管理系統
+
+
+
+
+- [x] 3.1 實作 TodoContext 和 Reducer
+
+
   - 建立 TodoContext 和 TodoProvider 組件
   - 實作 todoReducer 處理所有狀態變更
   - 定義所有 Action 類型和處理邏輯
   - 撰寫 reducer 的單元測試
   - _需求: 1.2, 1.4, 3.1, 3.4, 4.2, 4.4, 5.2, 5.4, 6.4_
 
-- [ ] 3.2 建立自定義 Hook
+- [x] 3.2 建立自定義 Hook
+
+
   - 實作 useTodos hook 封裝 context 操作
   - 提供便利的 CRUD 操作方法
   - 加入錯誤處理和類型安全
