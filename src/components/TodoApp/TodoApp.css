@@ -3,85 +3,160 @@
 .todo-app {
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f5f5;
+  padding: var(--spacing-xl);
+  font-family: var(--font-family-sans);
+  background-color: var(--color-gray-50);
   min-height: 100vh;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .todo-app__header {
   text-align: center;
-  margin-bottom: 30px;
-  padding: 20px 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-xl) 0;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-normal);
+}
+
+.todo-app__header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.todo-app__header:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
 }
 
 .todo-app__title {
-  color: white;
-  font-size: 2.5rem;
+  color: var(--color-white);
+  font-size: var(--text-4xl);
   font-weight: 300;
   margin: 0;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.025em;
 }
 
 .todo-app__main {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  margin-bottom: 20px;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-2xl);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--color-gray-200);
+  transition: box-shadow var(--transition-normal);
+  animation: slideIn 0.5s ease-out 0.2s both;
+}
+
+.todo-app__main:hover {
+  box-shadow: var(--shadow-lg);
 }
 
 .todo-app__placeholder {
-  padding: 20px;
-  margin: 15px 0;
-  background-color: #f8f9fa;
-  border: 2px dashed #dee2e6;
-  border-radius: 8px;
+  padding: var(--spacing-xl);
+  margin: var(--spacing-lg) 0;
+  background-color: var(--color-gray-50);
+  border: 2px dashed var(--color-gray-300);
+  border-radius: var(--radius-lg);
   text-align: center;
-  color: #6c757d;
+  color: var(--color-gray-500);
   font-style: italic;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.todo-app__placeholder:hover {
+  background-color: var(--color-gray-100);
+  border-color: var(--color-gray-400);
+  transform: translateY(-1px);
 }
 
 .todo-app__footer {
   text-align: center;
-  padding: 20px 0;
+  padding: var(--spacing-xl) 0;
+  animation: fadeIn 0.5s ease-out 0.4s both;
 }
 
 .todo-app__footer-text {
-  color: #6c757d;
-  font-size: 0.9rem;
+  color: var(--color-gray-500);
+  font-size: var(--text-sm);
   margin: 0;
+  transition: color var(--transition-fast);
+}
+
+.todo-app__footer-text:hover {
+  color: var(--color-gray-600);
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .todo-app {
-    padding: 10px;
+    padding: var(--spacing-md);
     margin: 0;
   }
   
   .todo-app__title {
-    font-size: 2rem;
+    font-size: var(--text-3xl);
   }
   
   .todo-app__main {
-    padding: 20px;
+    padding: var(--spacing-xl);
+  }
+  
+  .todo-app__header {
+    margin-bottom: var(--spacing-xl);
   }
 }
 
 @media (max-width: 480px) {
+  .todo-app {
+    padding: var(--spacing-sm);
+  }
+  
   .todo-app__title {
-    font-size: 1.8rem;
+    font-size: var(--text-2xl);
   }
   
   .todo-app__main {
-    padding: 15px;
+    padding: var(--spacing-lg);
+  }
+  
+  .todo-app__header {
+    padding: var(--spacing-lg) 0;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .todo-app,
+  .todo-app__main,
+  .todo-app__footer {
+    animation: none;
+  }
+  
+  .todo-app__header::before {
+    animation: none;
+  }
+  
+  .todo-app__header:hover,
+  .todo-app__placeholder:hover {
+    transform: none;
   }
 }

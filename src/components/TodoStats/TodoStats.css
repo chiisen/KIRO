@@ -1,74 +1,85 @@
 /* TodoStats Component Styles */
 
-:root {
-  --color-primary: #3b82f6;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-info: #06b6d4;
-  --color-danger: #ef4444;
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
+.todo-stats {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  margin: var(--spacing-md) 0;
+  box-shadow: var(--shadow-md);
+  animation: fadeIn 0.4s ease-out;
+  transition: all var(--transition-normal);
 }
 
-.todo-stats {
-  background: #ffffff;
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  margin: 1rem 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+.todo-stats:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
 .todo-stats__header {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-lg);
 }
 
 .todo-stats__title {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   font-weight: 700;
   color: var(--color-gray-800);
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
+}
+
+.todo-stats__title::before {
+  content: "📊";
+  font-size: var(--text-2xl);
 }
 
 .todo-stats__content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-lg);
 }
 
 /* Statistics Cards */
 .todo-stats__cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
+  gap: var(--spacing-md);
 }
 
 .todo-stats__card {
   background: var(--color-gray-50);
   border: 1px solid var(--color-gray-200);
-  border-radius: 0.5rem;
-  padding: 1rem;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  transition: all 0.2s ease-in-out;
+  gap: var(--spacing-md);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.todo-stats__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left var(--transition-slow);
 }
 
 .todo-stats__card:hover {
   background: var(--color-gray-100);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.todo-stats__card:hover::before {
+  left: 100%;
 }
 
 .todo-stats__card-icon {
@@ -76,7 +87,7 @@
 }
 
 .todo-stats__icon {
-  font-size: 1.5rem;
+  font-size: var(--text-2xl);
   display: block;
 }
 
@@ -86,59 +97,77 @@
 }
 
 .todo-stats__card-value {
-  font-size: 1.5rem;
+  font-size: var(--text-2xl);
   font-weight: 700;
   color: var(--color-gray-800);
-  line-height: 1.2;
+  line-height: var(--leading-tight);
 }
 
 .todo-stats__card-label {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--color-gray-600);
-  margin-top: 0.25rem;
+  margin-top: var(--spacing-xs);
   font-weight: 500;
 }
 
 /* Progress Section */
 .todo-stats__progress-section {
   background: var(--color-gray-50);
-  border-radius: 0.5rem;
-  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.todo-stats__progress-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left var(--transition-slow);
+}
+
+.todo-stats__progress-section:hover::before {
+  left: 100%;
 }
 
 .todo-stats__progress-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .todo-stats__progress-label {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-gray-700);
 }
 
 .todo-stats__progress-percentage {
-  font-size: 1rem;
+  font-size: var(--text-base);
   font-weight: 700;
   color: var(--color-gray-800);
 }
 
 .todo-stats__progress-bar {
   width: 100%;
-  height: 0.75rem;
+  height: 12px;
   background-color: var(--color-gray-200);
-  border-radius: 0.375rem;
+  border-radius: var(--radius-md);
   overflow: hidden;
   position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .todo-stats__progress-fill {
   height: 100%;
-  background-color: var(--color-primary);
-  border-radius: 0.375rem;
-  transition: all 0.3s ease-in-out;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-slow);
   position: relative;
 }
 
@@ -168,12 +197,12 @@
 }
 
 .todo-stats__progress-text {
-  margin-top: 0.75rem;
+  margin-top: var(--spacing-md);
   text-align: center;
 }
 
 .todo-stats__progress-description {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--color-gray-600);
   font-weight: 500;
 }
@@ -181,25 +210,25 @@
 /* Empty State */
 .todo-stats__empty-state {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: var(--spacing-2xl) var(--spacing-md);
 }
 
 .todo-stats__empty-icon {
-  font-size: 3rem;
+  font-size: var(--text-4xl);
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-md);
   opacity: 0.6;
 }
 
 .todo-stats__empty-text {
-  font-size: 1rem;
+  font-size: var(--text-base);
   font-weight: 600;
   color: var(--color-gray-700);
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 var(--spacing-sm) 0;
 }
 
 .todo-stats__empty-hint {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--color-gray-500);
   margin: 0;
 }
@@ -207,31 +236,31 @@
 /* Responsive Design */
 @media (max-width: 640px) {
   .todo-stats {
-    padding: 1rem;
-    margin: 0.75rem 0;
+    padding: var(--spacing-md);
+    margin: var(--spacing-sm) 0;
   }
 
   .todo-stats__cards {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    gap: var(--spacing-sm);
   }
 
   .todo-stats__card {
-    padding: 0.75rem;
+    padding: var(--spacing-sm);
   }
 
   .todo-stats__card-value {
-    font-size: 1.25rem;
+    font-size: var(--text-xl);
   }
 
   .todo-stats__progress-section {
-    padding: 1rem;
+    padding: var(--spacing-md);
   }
 
   .todo-stats__progress-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: var(--spacing-sm);
   }
 
   .todo-stats__progress-percentage {
@@ -247,15 +276,15 @@
   .todo-stats__card {
     flex-direction: column;
     text-align: center;
-    gap: 0.5rem;
+    gap: var(--spacing-sm);
   }
 
   .todo-stats__card-value {
-    font-size: 1.125rem;
+    font-size: var(--text-lg);
   }
 
   .todo-stats__card-label {
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
   }
 }
 
@@ -276,12 +305,37 @@
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
+  .todo-stats {
+    animation: none;
+    transition: none;
+  }
+
+  .todo-stats:hover {
+    transform: none;
+  }
+
   .todo-stats__card {
+    transition: none;
+  }
+
+  .todo-stats__card::before {
     transition: none;
   }
 
   .todo-stats__card:hover {
     transform: none;
+  }
+
+  .todo-stats__card:hover::before {
+    left: -100%;
+  }
+
+  .todo-stats__progress-section::before {
+    transition: none;
+  }
+
+  .todo-stats__progress-section:hover::before {
+    left: -100%;
   }
 
   .todo-stats__progress-fill {

@@ -2,28 +2,54 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  border: 1px solid #e1e5e9;
-  border-radius: 8px;
-  background-color: #ffffff;
-  margin-bottom: 8px;
-  transition: all 0.2s ease;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-white);
+  margin-bottom: var(--spacing-sm);
+  transition: all var(--transition-normal);
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+}
+
+.todo-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
 }
 
 .todo-item:hover {
-  border-color: #d1d9e0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-color: var(--color-gray-300);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.todo-item:hover::before {
+  opacity: 1;
 }
 
 .todo-item.completed {
-  background-color: #f8f9fa;
-  border-color: #e9ecef;
+  background-color: var(--color-gray-50);
+  border-color: var(--color-gray-200);
+  opacity: 0.8;
+}
+
+.todo-item.completed::before {
+  background: var(--color-success);
+  opacity: 1;
 }
 
 .todo-item-content {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--spacing-md);
   flex: 1;
 }
 
@@ -43,29 +69,60 @@
 .checkbox-custom {
   width: 20px;
   height: 20px;
-  border: 2px solid #d1d9e0;
-  border-radius: 4px;
-  background-color: #ffffff;
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.checkbox-custom::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--color-success) 0%, #059669 100%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all var(--transition-normal);
 }
 
 .todo-checkbox:checked + .checkbox-custom {
-  background-color: #28a745;
-  border-color: #28a745;
+  border-color: var(--color-success);
+}
+
+.todo-checkbox:checked + .checkbox-custom::before {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .todo-checkbox:checked + .checkbox-custom::after {
   content: '✓';
-  color: white;
+  color: var(--color-white);
   font-size: 14px;
   font-weight: bold;
+  position: relative;
+  z-index: 1;
+  animation: checkmark 0.3s ease-out;
+}
+
+@keyframes checkmark {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .todo-checkbox:focus + .checkbox-custom {
-  outline: 2px solid #007bff;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
@@ -76,29 +133,32 @@
 
 .todo-title {
   display: block;
-  font-size: 16px;
+  font-size: var(--text-base);
   font-weight: 500;
-  color: #212529;
-  margin-bottom: 4px;
+  color: var(--color-gray-800);
+  margin-bottom: var(--spacing-xs);
   word-wrap: break-word;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
+  line-height: var(--leading-tight);
 }
 
 .todo-title.completed-text {
   text-decoration: line-through;
-  color: #6c757d;
+  color: var(--color-gray-500);
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--color-gray-400);
 }
 
 .todo-timestamps {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--spacing-xs);
 }
 
 .todo-created,
 .todo-updated {
-  font-size: 12px;
-  color: #6c757d;
+  font-size: var(--text-xs);
+  color: var(--color-gray-500);
 }
 
 .todo-updated {
@@ -111,53 +171,54 @@
 }
 
 .todo-title.editable:hover {
-  background-color: #f8f9fa;
-  padding: 2px 4px;
-  border-radius: 4px;
+  background-color: var(--color-gray-100);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
 }
 
 .todo-edit-container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
   width: 100%;
 }
 
 .todo-edit-input {
-  font-size: 16px;
+  font-size: var(--text-base);
   font-weight: 500;
-  padding: 8px 12px;
-  border: 2px solid #007bff;
-  border-radius: 4px;
-  background-color: white;
-  color: #212529;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-white);
+  color: var(--color-gray-800);
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: all var(--transition-normal);
 }
 
 .todo-edit-input:focus {
-  border-color: #0056b3;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  border-color: var(--color-primary-dark);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .todo-edit-input.error {
-  border-color: #dc3545;
+  border-color: var(--color-danger);
+  animation: shake 0.3s ease-in-out;
 }
 
 .todo-edit-input.error:focus {
-  border-color: #dc3545;
-  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
 .edit-error {
-  color: #dc3545;
-  font-size: 12px;
+  color: var(--color-danger);
+  font-size: var(--text-xs);
   font-weight: 500;
 }
 
 .edit-actions {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .edit-confirm-btn,
@@ -165,11 +226,11 @@
   background: none;
   border: 2px solid;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-normal);
   min-width: 32px;
   height: 32px;
   display: flex;
@@ -178,39 +239,39 @@
 }
 
 .edit-confirm-btn {
-  border-color: #28a745;
-  color: #28a745;
+  border-color: var(--color-success);
+  color: var(--color-success);
 }
 
 .edit-confirm-btn:hover {
-  background-color: #28a745;
-  color: white;
+  background-color: var(--color-success);
+  color: var(--color-white);
 }
 
 .edit-confirm-btn:focus {
-  outline: 2px solid #28a745;
+  outline: 2px solid var(--color-success);
   outline-offset: 2px;
 }
 
 .edit-cancel-btn {
-  border-color: #6c757d;
-  color: #6c757d;
+  border-color: var(--color-gray-500);
+  color: var(--color-gray-500);
 }
 
 .edit-cancel-btn:hover {
-  background-color: #6c757d;
-  color: white;
+  background-color: var(--color-gray-500);
+  color: var(--color-white);
 }
 
 .edit-cancel-btn:focus {
-  outline: 2px solid #6c757d;
+  outline: 2px solid var(--color-gray-500);
   outline-offset: 2px;
 }
 
 .todo-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .todo-status {
@@ -219,12 +280,13 @@
 }
 
 .status-badge {
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 12px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-xl);
+  font-size: var(--text-xs);
   font-weight: 500;
   text-align: center;
   min-width: 60px;
+  transition: all var(--transition-normal);
 }
 
 .status-completed {
@@ -244,21 +306,22 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  padding: 4px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  font-size: var(--text-base);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-normal);
   opacity: 0.6;
+  color: var(--color-danger);
 }
 
 .delete-btn:hover {
   opacity: 1;
-  background-color: #f8d7da;
+  background-color: #fef2f2;
   transform: scale(1.1);
 }
 
 .delete-btn:focus {
-  outline: 2px solid #dc3545;
+  outline: 2px solid var(--color-danger);
   outline-offset: 2px;
 }
 
@@ -273,98 +336,104 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: var(--z-modal);
+  animation: fadeIn 0.2s ease-out;
 }
 
 .delete-confirm-dialog {
-  background-color: white;
-  border-radius: 8px;
-  padding: 24px;
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
   max-width: 400px;
   width: 90%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-xl);
+  animation: slideIn 0.3s ease-out;
 }
 
 .delete-confirm-dialog h3 {
-  margin: 0 0 12px 0;
-  font-size: 18px;
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: var(--text-lg);
   font-weight: 600;
-  color: #212529;
+  color: var(--color-gray-800);
 }
 
 .delete-confirm-dialog p {
-  margin: 0 0 20px 0;
-  color: #6c757d;
-  line-height: 1.5;
+  margin: 0 0 var(--spacing-xl) 0;
+  color: var(--color-gray-600);
+  line-height: var(--leading-normal);
 }
 
 .delete-confirm-actions {
   display: flex;
-  gap: 12px;
+  gap: var(--spacing-md);
   justify-content: flex-end;
 }
 
 .delete-confirm-btn {
-  background-color: #dc3545;
-  color: white;
+  background-color: var(--color-danger);
+  color: var(--color-white);
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.2s ease;
+  transition: all var(--transition-normal);
 }
 
 .delete-confirm-btn:hover {
   background-color: #c82333;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .delete-confirm-btn:focus {
-  outline: 2px solid #dc3545;
+  outline: 2px solid var(--color-danger);
   outline-offset: 2px;
 }
 
 .delete-cancel-btn {
-  background-color: #6c757d;
-  color: white;
+  background-color: var(--color-gray-500);
+  color: var(--color-white);
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.2s ease;
+  transition: all var(--transition-normal);
 }
 
 .delete-cancel-btn:hover {
   background-color: #5a6268;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .delete-cancel-btn:focus {
-  outline: 2px solid #6c757d;
+  outline: 2px solid var(--color-gray-500);
   outline-offset: 2px;
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .todo-item {
-    padding: 10px 12px;
+    padding: var(--spacing-sm) var(--spacing-md);
   }
   
   .todo-item-content {
-    gap: 8px;
+    gap: var(--spacing-sm);
   }
   
   .todo-title {
-    font-size: 14px;
+    font-size: var(--text-sm);
   }
   
   .todo-timestamps {
-    font-size: 11px;
+    font-size: var(--text-xs);
   }
   
   .status-badge {
-    font-size: 11px;
-    padding: 3px 6px;
+    font-size: var(--text-xs);
+    padding: var(--spacing-xs);
     min-width: 50px;
   }
 }
@@ -388,7 +457,20 @@
 @media (prefers-reduced-motion: reduce) {
   .todo-item,
   .checkbox-custom,
-  .todo-title {
+  .todo-title,
+  .delete-confirm-overlay,
+  .delete-confirm-dialog {
     transition: none;
+    animation: none;
+  }
+  
+  .todo-item:hover,
+  .delete-confirm-btn:hover,
+  .delete-cancel-btn:hover {
+    transform: none;
+  }
+  
+  .todo-checkbox:checked + .checkbox-custom::after {
+    animation: none;
   }
 }
