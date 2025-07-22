@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTodos } from '../../hooks/useTodos';
-import { Todo } from '../../types/todo';
+import { TodoItem } from '../TodoItem';
 import './TodoList.css';
 
 /**
@@ -9,24 +9,6 @@ import './TodoList.css';
 export interface TodoListProps {
   className?: string;
 }
-
-/**
- * Temporary TodoItem component until the actual one is implemented
- * This will be replaced when task 5.1 is completed
- */
-const TemporaryTodoItem: React.FC<{ todo: Todo }> = ({ todo }) => (
-  <div className="todo-item" data-testid={`todo-item-${todo.id}`}>
-    <span className={`todo-title ${todo.completed ? 'completed' : ''}`}>
-      {todo.title}
-    </span>
-    <span className="todo-status">
-      {todo.completed ? '已完成' : '未完成'}
-    </span>
-    <span className="todo-date">
-      {todo.createdAt.toLocaleDateString()}
-    </span>
-  </div>
-);
 
 /**
  * TodoList container component
@@ -67,7 +49,7 @@ export const TodoList: React.FC<TodoListProps> = ({ className = '' }) => {
       
       <div className="todo-list-content">
         {filteredTodos.map((todo) => (
-          <TemporaryTodoItem key={todo.id} todo={todo} />
+          <TodoItem key={todo.id} todo={todo} />
         ))}
       </div>
     </div>

@@ -1,0 +1,394 @@
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  background-color: #ffffff;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+}
+
+.todo-item:hover {
+  border-color: #d1d9e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.todo-item.completed {
+  background-color: #f8f9fa;
+  border-color: #e9ecef;
+}
+
+.todo-item-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+
+.todo-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.todo-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d9e0;
+  border-radius: 4px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.todo-checkbox:checked + .checkbox-custom {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.todo-checkbox:checked + .checkbox-custom::after {
+  content: '✓';
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.todo-checkbox:focus + .checkbox-custom {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.todo-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-title {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #212529;
+  margin-bottom: 4px;
+  word-wrap: break-word;
+  transition: all 0.2s ease;
+}
+
+.todo-title.completed-text {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.todo-timestamps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.todo-created,
+.todo-updated {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.todo-updated {
+  font-style: italic;
+}
+
+/* Inline editing styles */
+.todo-title.editable {
+  cursor: pointer;
+}
+
+.todo-title.editable:hover {
+  background-color: #f8f9fa;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.todo-edit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.todo-edit-input {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  background-color: white;
+  color: #212529;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.todo-edit-input:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.todo-edit-input.error {
+  border-color: #dc3545;
+}
+
+.todo-edit-input.error:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+}
+
+.edit-error {
+  color: #dc3545;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-confirm-btn,
+.edit-cancel-btn {
+  background: none;
+  border: 2px solid;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-confirm-btn {
+  border-color: #28a745;
+  color: #28a745;
+}
+
+.edit-confirm-btn:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+.edit-confirm-btn:focus {
+  outline: 2px solid #28a745;
+  outline-offset: 2px;
+}
+
+.edit-cancel-btn {
+  border-color: #6c757d;
+  color: #6c757d;
+}
+
+.edit-cancel-btn:hover {
+  background-color: #6c757d;
+  color: white;
+}
+
+.edit-cancel-btn:focus {
+  outline: 2px solid #6c757d;
+  outline-offset: 2px;
+}
+
+.todo-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.todo-status {
+  display: flex;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  min-width: 60px;
+}
+
+.status-completed {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-active {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* Delete button styles */
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+  background-color: #f8d7da;
+  transform: scale(1.1);
+}
+
+.delete-btn:focus {
+  outline: 2px solid #dc3545;
+  outline-offset: 2px;
+}
+
+/* Delete confirmation dialog styles */
+.delete-confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.delete-confirm-dialog {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.delete-confirm-dialog h3 {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #212529;
+}
+
+.delete-confirm-dialog p {
+  margin: 0 0 20px 0;
+  color: #6c757d;
+  line-height: 1.5;
+}
+
+.delete-confirm-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.delete-confirm-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.delete-confirm-btn:hover {
+  background-color: #c82333;
+}
+
+.delete-confirm-btn:focus {
+  outline: 2px solid #dc3545;
+  outline-offset: 2px;
+}
+
+.delete-cancel-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.delete-cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+.delete-cancel-btn:focus {
+  outline: 2px solid #6c757d;
+  outline-offset: 2px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .todo-item {
+    padding: 10px 12px;
+  }
+  
+  .todo-item-content {
+    gap: 8px;
+  }
+  
+  .todo-title {
+    font-size: 14px;
+  }
+  
+  .todo-timestamps {
+    font-size: 11px;
+  }
+  
+  .status-badge {
+    font-size: 11px;
+    padding: 3px 6px;
+    min-width: 50px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .todo-item {
+    border-width: 2px;
+  }
+  
+  .checkbox-custom {
+    border-width: 3px;
+  }
+  
+  .todo-title.completed-text {
+    text-decoration-thickness: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .todo-item,
+  .checkbox-custom,
+  .todo-title {
+    transition: none;
+  }
+}

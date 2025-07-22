@@ -77,10 +77,10 @@ describe('TodoList Component', () => {
       expect(screen.getAllByText('未完成')).toHaveLength(2);
       expect(screen.getByText('已完成')).toBeInTheDocument();
       
-      // Check dates are displayed
-      expect(screen.getByText('2024/1/1')).toBeInTheDocument();
-      expect(screen.getByText('2024/1/2')).toBeInTheDocument();
-      expect(screen.getByText('2024/1/3')).toBeInTheDocument();
+      // Check dates are displayed (using partial text matching for formatted dates)
+      expect(screen.getByText(/建立於:.*2024\/01\/01/)).toBeInTheDocument();
+      expect(screen.getByText(/建立於:.*2024\/01\/02/)).toBeInTheDocument();
+      expect(screen.getByText(/建立於:.*2024\/01\/03/)).toBeInTheDocument();
     });
 
     it('applies completed styling to completed todos', () => {
@@ -91,10 +91,10 @@ describe('TodoList Component', () => {
       );
 
       const completedTodo = screen.getByText('購買日用品');
-      expect(completedTodo).toHaveClass('completed');
+      expect(completedTodo).toHaveClass('completed-text');
       
       const activeTodos = screen.getByText('完成專案報告');
-      expect(activeTodos).not.toHaveClass('completed');
+      expect(activeTodos).not.toHaveClass('completed-text');
     });
 
     it('applies custom className when provided', () => {

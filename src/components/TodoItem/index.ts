@@ -1,1 +1,1 @@
-// TodoItem component exports will be added here
+export { TodoItem } from './TodoItem';
