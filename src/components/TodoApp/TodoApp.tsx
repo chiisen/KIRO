@@ -1,6 +1,8 @@
 import { TodoProvider } from '../../context/TodoContext';
 import { TodoForm } from '../TodoForm';
 import { TodoList } from '../TodoList';
+import { TodoFilter } from '../TodoFilter';
+import { TodoStats } from '../TodoStats';
 import './TodoApp.css';
 
 /**
@@ -19,13 +21,14 @@ export function TodoApp() {
           {/* TodoForm component for adding new todos */}
           <TodoForm />
           
+          {/* TodoFilter component for filtering todos */}
+          <TodoFilter />
+          
           {/* TodoList component */}
           <TodoList />
           
-          {/* TodoFilter and TodoStats will be added in later tasks */}
-          <div className="todo-app__placeholder">
-            過濾器和統計組件將在後續任務中實作
-          </div>
+          {/* TodoStats component for displaying statistics */}
+          <TodoStats />
         </main>
         
         <footer className="todo-app__footer">

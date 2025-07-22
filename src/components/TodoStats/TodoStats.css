@@ -1,0 +1,352 @@
+/* TodoStats Component Styles */
+
+:root {
+  --color-primary: #3b82f6;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-info: #06b6d4;
+  --color-danger: #ef4444;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+}
+
+.todo-stats {
+  background: #ffffff;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.todo-stats__header {
+  margin-bottom: 1.5rem;
+}
+
+.todo-stats__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.todo-stats__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Statistics Cards */
+.todo-stats__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.todo-stats__card {
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.todo-stats__card:hover {
+  background: var(--color-gray-100);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.todo-stats__card-icon {
+  flex-shrink: 0;
+}
+
+.todo-stats__icon {
+  font-size: 1.5rem;
+  display: block;
+}
+
+.todo-stats__card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-stats__card-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+  line-height: 1.2;
+}
+
+.todo-stats__card-label {
+  font-size: 0.875rem;
+  color: var(--color-gray-600);
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Progress Section */
+.todo-stats__progress-section {
+  background: var(--color-gray-50);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+}
+
+.todo-stats__progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.todo-stats__progress-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-gray-700);
+}
+
+.todo-stats__progress-percentage {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+}
+
+.todo-stats__progress-bar {
+  width: 100%;
+  height: 0.75rem;
+  background-color: var(--color-gray-200);
+  border-radius: 0.375rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.todo-stats__progress-fill {
+  height: 100%;
+  background-color: var(--color-primary);
+  border-radius: 0.375rem;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+.todo-stats__progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.todo-stats__progress-text {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.todo-stats__progress-description {
+  font-size: 0.875rem;
+  color: var(--color-gray-600);
+  font-weight: 500;
+}
+
+/* Empty State */
+.todo-stats__empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.todo-stats__empty-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.todo-stats__empty-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  margin: 0 0 0.5rem 0;
+}
+
+.todo-stats__empty-hint {
+  font-size: 0.875rem;
+  color: var(--color-gray-500);
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .todo-stats {
+    padding: 1rem;
+    margin: 0.75rem 0;
+  }
+
+  .todo-stats__cards {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .todo-stats__card {
+    padding: 0.75rem;
+  }
+
+  .todo-stats__card-value {
+    font-size: 1.25rem;
+  }
+
+  .todo-stats__progress-section {
+    padding: 1rem;
+  }
+
+  .todo-stats__progress-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .todo-stats__progress-percentage {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .todo-stats__cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .todo-stats__card {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .todo-stats__card-value {
+    font-size: 1.125rem;
+  }
+
+  .todo-stats__card-label {
+    font-size: 0.75rem;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .todo-stats {
+    border-width: 2px;
+  }
+
+  .todo-stats__card {
+    border-width: 2px;
+  }
+
+  .todo-stats__progress-bar {
+    border: 1px solid var(--color-gray-400);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .todo-stats__card {
+    transition: none;
+  }
+
+  .todo-stats__card:hover {
+    transform: none;
+  }
+
+  .todo-stats__progress-fill {
+    transition: none;
+  }
+
+  .todo-stats__progress-fill::after {
+    animation: none;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .todo-stats {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    color: var(--color-gray-100);
+  }
+
+  .todo-stats__title {
+    color: var(--color-gray-100);
+  }
+
+  .todo-stats__card {
+    background: var(--color-gray-700);
+    border-color: var(--color-gray-600);
+  }
+
+  .todo-stats__card:hover {
+    background: var(--color-gray-600);
+  }
+
+  .todo-stats__card-value {
+    color: var(--color-gray-100);
+  }
+
+  .todo-stats__card-label {
+    color: var(--color-gray-300);
+  }
+
+  .todo-stats__progress-section {
+    background: var(--color-gray-700);
+  }
+
+  .todo-stats__progress-label {
+    color: var(--color-gray-200);
+  }
+
+  .todo-stats__progress-percentage {
+    color: var(--color-gray-100);
+  }
+
+  .todo-stats__progress-bar {
+    background-color: var(--color-gray-600);
+  }
+
+  .todo-stats__progress-description {
+    color: var(--color-gray-300);
+  }
+
+  .todo-stats__empty-text {
+    color: var(--color-gray-200);
+  }
+
+  .todo-stats__empty-hint {
+    color: var(--color-gray-400);
+  }
+}

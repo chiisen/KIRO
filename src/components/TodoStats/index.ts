@@ -1,1 +1,2 @@
-// TodoStats component exports will be added here
+export { TodoStats, type TodoStatsProps } from './TodoStats';
+export { default } from './TodoStats';

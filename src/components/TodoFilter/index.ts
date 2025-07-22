@@ -1,1 +1,2 @@
-// TodoFilter component exports will be added here
+export { TodoFilter, type TodoFilterProps } from './TodoFilter';
+export { default } from './TodoFilter';
