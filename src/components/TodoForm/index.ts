@@ -1,1 +1,2 @@
-// TodoForm component exports will be added here
+export { TodoForm } from './TodoForm';
+export type { TodoFormProps } from './TodoForm';

@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useEffect, ReactNode } from 'react';
-import { Todo, TodoState, TodoAction, FilterType } from '../types/todo';
+import { Todo, TodoState, TodoAction } from '../types/todo';
 import { saveTodoState, loadTodoState } from '../utils/storage';
 
 /**
@@ -115,14 +115,15 @@ export const TodoContext = createContext<TodoContextType | null>(null);
  */
 interface TodoProviderProps {
   children: ReactNode;
+  initialState?: TodoState;
 }
 
 /**
  * TodoProvider component that provides todo state and dispatch to children
  */
-export function TodoProvider({ children }: TodoProviderProps) {
-  // Initialize state with data from localStorage
-  const [state, dispatch] = useReducer(todoReducer, loadTodoState());
+export function TodoProvider({ children, initialState }: TodoProviderProps) {
+  // Initialize state with provided initial state or data from localStorage
+  const [state, dispatch] = useReducer(todoReducer, initialState || loadTodoState());
 
   // Save state to localStorage whenever it changes
   useEffect(() => {

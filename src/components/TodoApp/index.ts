@@ -1,1 +1,1 @@
-// TodoApp component exports will be added here
+export { TodoApp } from './TodoApp';
