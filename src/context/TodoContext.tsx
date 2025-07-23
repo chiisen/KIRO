@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useEffect, ReactNode } from 'react';
 import { Todo, TodoState, TodoAction } from '../types/todo';
-import { saveTodoState, loadTodoState } from '../utils/storage';
+import { saveTodoState, loadTodoState, flushPendingSaves } from '../utils/storage';
 
 /**
  * Generate unique ID for todos
@@ -125,7 +125,7 @@ export function TodoProvider({ children, initialState }: TodoProviderProps) {
   // Initialize state with provided initial state or data from localStorage
   const [state, dispatch] = useReducer(todoReducer, initialState || loadTodoState());
 
-  // Save state to localStorage whenever it changes
+  // Save state to localStorage whenever it changes (debounced)
   useEffect(() => {
     try {
       saveTodoState(state);
@@ -134,6 +134,27 @@ export function TodoProvider({ children, initialState }: TodoProviderProps) {
       // Could implement user notification here
     }
   }, [state]);
+
+  // Cleanup effect to flush pending saves when component unmounts
+  useEffect(() => {
+    return () => {
+      // Flush any pending saves when the provider is unmounted
+      flushPendingSaves();
+    };
+  }, []);
+
+  // Add beforeunload event listener to save data before page closes
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      flushPendingSaves();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   const contextValue: TodoContextType = {
     state,

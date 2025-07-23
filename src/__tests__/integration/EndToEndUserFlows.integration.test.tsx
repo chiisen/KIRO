@@ -96,7 +96,7 @@ describe('End-to-End User Flows Integration Tests', () => {
 
       // Step 5: Use filters to focus on different task types
       // Filter to show only active tasks
-      const activeFilter = screen.getByText(/未完成/);
+      const activeFilter = screen.getByTestId('filter-active');
       await user.click(activeFilter);
 
       // Should only show uncompleted tasks
@@ -125,7 +125,7 @@ describe('End-to-End User Flows Integration Tests', () => {
       await user.click(remainingCheckboxes[1]); // Complete another task
 
       // Step 8: Check completed tasks
-      const completedFilter = screen.getByText(/已完成/);
+      const completedFilter = screen.getByTestId('filter-completed');
       await user.click(completedFilter);
 
       // Should show completed tasks
@@ -141,7 +141,7 @@ describe('End-to-End User Flows Integration Tests', () => {
       await user.click(deleteButtons[0]); // Index 0 again because array shifts
 
       // Step 10: Return to all view and verify final state
-      const allFilter = screen.getByText(/全部/);
+      const allFilter = screen.getByTestId('filter-all');
       await user.click(allFilter);
 
       // Step 11: Verify data persistence by simulating page reload
@@ -184,7 +184,7 @@ describe('End-to-End User Flows Integration Tests', () => {
       }
 
       // Should end up with 3 completed tasks (verify by checking some completed state exists)
-      expect(screen.getByText(/已完成/)).toBeInTheDocument();
+      expect(screen.getByTestId('filter-completed')).toBeInTheDocument();
     });
 
     it('should handle validation errors and recovery', async () => {
@@ -195,12 +195,12 @@ describe('End-to-End User Flows Integration Tests', () => {
 
       // Try to add empty todo
       await user.click(addButton);
-      expect(screen.getByText('請輸入待辦事項標題')).toBeInTheDocument();
+      expect(screen.getByText('請輸入待辦事項內容')).toBeInTheDocument();
 
       // Try to add whitespace-only todo
       await user.type(input, '   ');
       await user.click(addButton);
-      expect(screen.getByText('請輸入待辦事項標題')).toBeInTheDocument();
+      expect(screen.getByText('請輸入待辦事項內容')).toBeInTheDocument();
 
       // Add valid todo after errors
       await user.clear(input);
@@ -209,7 +209,7 @@ describe('End-to-End User Flows Integration Tests', () => {
 
       // Should succeed and clear error
       expect(screen.getByText('有效的待辦事項')).toBeInTheDocument();
-      expect(screen.queryByText('請輸入待辦事項標題')).not.toBeInTheDocument();
+      expect(screen.queryByText('請輸入待辦事項內容')).not.toBeInTheDocument();
     });
 
     it('should handle delete confirmation scenarios', async () => {
@@ -217,9 +217,9 @@ describe('End-to-End User Flows Integration Tests', () => {
       render(<TodoApp />);
 
       // Add a todo to delete
-      const { input } = getFormElements();
+      const { input, addButton } = getFormElements();
       await user.type(input, '要測試刪除的任務');
-      await user.click(screen.getByRole('button', { name: '新增' }));
+      await user.click(addButton);
 
       const deleteButton = screen.getByText('🗑️');
 
@@ -287,7 +287,7 @@ describe('End-to-End User Flows Integration Tests', () => {
       // Add todo and check dynamic ARIA updates
       const input = screen.getByRole('textbox');
       await user.type(input, '無障礙測試');
-      await user.click(screen.getByRole('button', { name: '新增' }));
+      await user.click(screen.getByRole('button', { name: '新增待辦事項' }));
 
       // Check that progress bar updates
       const progressBar = screen.getByRole('progressbar');
@@ -337,9 +337,9 @@ describe('End-to-End User Flows Integration Tests', () => {
       // Test filter switching performance
       const switchStartTime = performance.now();
       
-      await user.click(screen.getByText(/已完成/));
-      await user.click(screen.getByText(/未完成/));
-      await user.click(screen.getByText(/全部/));
+      await user.click(screen.getByTestId('filter-completed'));
+      await user.click(screen.getByTestId('filter-active'));
+      await user.click(screen.getByTestId('filter-all'));
 
       const switchTime = performance.now() - switchStartTime;
       expect(switchTime).toBeLessThan(1000);
@@ -382,7 +382,7 @@ describe('End-to-End User Flows Integration Tests', () => {
       });
 
       // Test filter consistency
-      const completedFilter = screen.getByText(/已完成/);
+      const completedFilter = screen.getByTestId('filter-completed');
       await user.click(completedFilter);
       
       // Count visible todos in completed filter
@@ -392,7 +392,7 @@ describe('End-to-End User Flows Integration Tests', () => {
       });
 
       // Switch to active filter
-      const activeFilter = screen.getByText(/未完成/);
+      const activeFilter = screen.getByTestId('filter-active');
       await user.click(activeFilter);
       
       const activeTodos = todos.filter(t => !t.shouldComplete);
@@ -415,7 +415,7 @@ describe('End-to-End User Flows Integration Tests', () => {
       // Test TodoForm -> TodoList integration
       const input = screen.getByRole('textbox');
       await user.type(input, '整合測試任務');
-      await user.click(screen.getByRole('button', { name: '新增' }));
+      await user.click(screen.getByRole('button', { name: '新增待辦事項' }));
 
       // Should appear in TodoList
       expect(screen.getByText('整合測試任務')).toBeInTheDocument();
@@ -425,18 +425,18 @@ describe('End-to-End User Flows Integration Tests', () => {
       await user.click(checkbox);
 
       // Test TodoFilter -> TodoList integration
-      await user.click(screen.getByText(/已完成/));
+      await user.click(screen.getByTestId('filter-completed'));
       
       // Should still show the completed todo
       expect(screen.getByText('整合測試任務')).toBeInTheDocument();
 
-      await user.click(screen.getByText(/未完成/));
+      await user.click(screen.getByTestId('filter-active'));
       
       // Should show empty state
-      expect(screen.getByText('沒有待辦事項')).toBeInTheDocument();
+      expect(screen.getByText('沒有未完成的待辦事項')).toBeInTheDocument();
 
       // Test TodoItem edit -> TodoList update
-      await user.click(screen.getByText(/全部/));
+      await user.click(screen.getByTestId('filter-all'));
       
       const todoTitle = screen.getByText('整合測試任務');
       await user.dblClick(todoTitle);

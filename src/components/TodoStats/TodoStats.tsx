@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTodos } from '../../hooks/useTodos';
 import './TodoStats.css';
 
@@ -12,8 +12,9 @@ export interface TodoStatsProps {
 /**
  * TodoStats component for displaying todo statistics
  * Shows total, completed, and active todo counts with progress visualization
+ * Optimized with React.memo to prevent unnecessary re-renders
  */
-export const TodoStats: React.FC<TodoStatsProps> = ({ className = '' }) => {
+const TodoStatsComponent: React.FC<TodoStatsProps> = ({ className = '' }) => {
   const { stats } = useTodos();
 
   const getProgressBarColor = (percentage: number): string => {
@@ -130,5 +131,11 @@ export const TodoStats: React.FC<TodoStatsProps> = ({ className = '' }) => {
     </div>
   );
 };
+
+/**
+ * Memoized TodoStats component
+ * Only re-renders when className prop changes
+ */
+export const TodoStats = memo(TodoStatsComponent);
 
 export default TodoStats;

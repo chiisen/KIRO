@@ -46,8 +46,8 @@ describe('Data Persistence Integration Tests', () => {
       const { unmount } = render(<TodoApp />);
 
       // Add multiple todos
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       await user.type(input, '第一個任務');
       await user.click(addButton);
@@ -111,8 +111,8 @@ describe('Data Persistence Integration Tests', () => {
       render(<TodoApp />);
 
       // Try to add a todo (this should trigger save)
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       await user.type(input, '測試任務');
       await user.click(addButton);
@@ -159,8 +159,8 @@ describe('Data Persistence Integration Tests', () => {
       const user = userEvent.setup();
       render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Add todo and verify immediate save
       await user.type(input, '即時保存測試');
@@ -204,8 +204,8 @@ describe('Data Persistence Integration Tests', () => {
       const user = userEvent.setup();
       render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Rapidly add multiple todos
       const todoTitles = ['任務1', '任務2', '任務3', '任務4', '任務5'];

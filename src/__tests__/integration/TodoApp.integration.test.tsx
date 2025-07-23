@@ -51,8 +51,8 @@ describe('TodoApp Integration Tests', () => {
       expect(screen.getByText('未完成: 0')).toBeInTheDocument();
 
       // Add first todo
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       await user.type(input, '學習 React');
       await user.click(addButton);
@@ -115,17 +115,17 @@ describe('TodoApp Integration Tests', () => {
       const user = userEvent.setup();
       render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Try to add empty todo
       await user.click(addButton);
-      expect(screen.getByText('請輸入待辦事項標題')).toBeInTheDocument();
+      expect(screen.getByText('請輸入待辦事項內容')).toBeInTheDocument();
 
       // Try to add whitespace-only todo
       await user.type(input, '   ');
       await user.click(addButton);
-      expect(screen.getByText('請輸入待辦事項標題')).toBeInTheDocument();
+      expect(screen.getByText('請輸入待辦事項內容')).toBeInTheDocument();
 
       // Add valid todo
       await user.clear(input);
@@ -133,7 +133,7 @@ describe('TodoApp Integration Tests', () => {
       await user.click(addButton);
 
       expect(screen.getByText('有效的待辦事項')).toBeInTheDocument();
-      expect(screen.queryByText('請輸入待辦事項標題')).not.toBeInTheDocument();
+      expect(screen.queryByText('請輸入待辦事項內容')).not.toBeInTheDocument();
     });
   });
 
@@ -143,8 +143,8 @@ describe('TodoApp Integration Tests', () => {
       render(<TodoApp />);
 
       // Add test todos
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       await user.type(input, '未完成任務1');
       await user.click(addButton);
@@ -169,7 +169,7 @@ describe('TodoApp Integration Tests', () => {
       expect(screen.getByText('將完成的任務')).toBeInTheDocument();
 
       // Test "Active" filter
-      const activeFilter = screen.getByText('未完成 (2)');
+      const activeFilter = screen.getByTestId('filter-active');
       await user.click(activeFilter);
 
       expect(screen.getByText('未完成任務1')).toBeInTheDocument();
@@ -177,7 +177,7 @@ describe('TodoApp Integration Tests', () => {
       expect(screen.queryByText('將完成的任務')).not.toBeInTheDocument();
 
       // Test "Completed" filter
-      const completedFilter = screen.getByText('已完成 (1)');
+      const completedFilter = screen.getByTestId('filter-completed');
       await user.click(completedFilter);
 
       expect(screen.queryByText('未完成任務1')).not.toBeInTheDocument();
@@ -185,7 +185,7 @@ describe('TodoApp Integration Tests', () => {
       expect(screen.getByText('將完成的任務')).toBeInTheDocument();
 
       // Back to "All" filter
-      const allFilter = screen.getByText('全部 (3)');
+      const allFilter = screen.getByTestId('filter-all');
       await user.click(allFilter);
 
       expect(screen.getByText('未完成任務1')).toBeInTheDocument();
@@ -201,8 +201,8 @@ describe('TodoApp Integration Tests', () => {
       // First render - add some todos
       const { unmount } = render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       await user.type(input, '持久化測試');
       await user.click(addButton);
@@ -247,8 +247,8 @@ describe('TodoApp Integration Tests', () => {
       const user = userEvent.setup();
       render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Add 3 todos
       for (let i = 1; i <= 3; i++) {
@@ -290,8 +290,8 @@ describe('TodoApp Integration Tests', () => {
       render(<TodoApp />);
 
       // Add a todo
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       await user.type(input, '原始標題');
       await user.click(addButton);
@@ -319,8 +319,8 @@ describe('TodoApp Integration Tests', () => {
       render(<TodoApp />);
 
       // Add a todo
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       await user.type(input, '原始標題');
       await user.click(addButton);
@@ -348,8 +348,8 @@ describe('TodoApp Integration Tests', () => {
       render(<TodoApp />);
 
       // Add a todo
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       await user.type(input, '要刪除的任務');
       await user.click(addButton);
@@ -377,7 +377,7 @@ describe('TodoApp Integration Tests', () => {
       const user = userEvent.setup();
       render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
 
       // Type and press Enter
       await user.type(input, '用 Enter 新增');
@@ -393,7 +393,7 @@ describe('TodoApp Integration Tests', () => {
       render(<TodoApp />);
 
       // Add a todo
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
       await user.type(input, '原始標題');
       await user.keyboard('{Enter}');
 
@@ -417,7 +417,7 @@ describe('TodoApp Integration Tests', () => {
       render(<TodoApp />);
 
       // Add a todo
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
       await user.type(input, '原始標題');
       await user.keyboard('{Enter}');
 

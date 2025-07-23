@@ -35,8 +35,8 @@ describe('Filter and Statistics Integration Tests', () => {
       render(<TodoApp />);
 
       // Set up test data: 5 todos with mixed completion states
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       const todos = [
         '購買雜貨',
@@ -70,7 +70,7 @@ describe('Filter and Statistics Integration Tests', () => {
       expect(screen.getByText('整理房間')).toBeInTheDocument();
 
       // Test Active filter
-      const activeFilter = screen.getByText('未完成 (2)');
+      const activeFilter = screen.getByTestId('filter-active');
       await user.click(activeFilter);
 
       // Should show only uncompleted todos
@@ -81,7 +81,7 @@ describe('Filter and Statistics Integration Tests', () => {
       expect(screen.queryByText('整理房間')).not.toBeInTheDocument();
 
       // Test Completed filter
-      const completedFilter = screen.getByText('已完成 (3)');
+      const completedFilter = screen.getByTestId('filter-completed');
       await user.click(completedFilter);
 
       // Should show only completed todos
@@ -92,7 +92,7 @@ describe('Filter and Statistics Integration Tests', () => {
       expect(screen.getByText('整理房間')).toBeInTheDocument();
 
       // Test All filter
-      const allFilter = screen.getByText('全部 (5)');
+      const allFilter = screen.getByTestId('filter-all');
       await user.click(allFilter);
 
       // Should show all todos again
@@ -122,8 +122,8 @@ describe('Filter and Statistics Integration Tests', () => {
       expect(screen.getByText('已完成 (4)')).toBeInTheDocument();
 
       // Add a new todo
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       await user.type(input, '新增的任務');
       await user.click(addButton);
@@ -146,13 +146,13 @@ describe('Filter and Statistics Integration Tests', () => {
       }
 
       // Switch to active filter - should show empty state
-      const activeFilter = screen.getByText('未完成 (0)');
+      const activeFilter = screen.getByTestId('filter-active');
       await user.click(activeFilter);
 
       expect(screen.getByText('沒有待辦事項')).toBeInTheDocument();
 
       // Switch to completed filter - should show all todos
-      const completedFilter = screen.getByText('已完成 (5)');
+      const completedFilter = screen.getByTestId('filter-completed');
       await user.click(completedFilter);
 
       expect(screen.queryByText('沒有待辦事項')).not.toBeInTheDocument();
@@ -170,7 +170,7 @@ describe('Filter and Statistics Integration Tests', () => {
       expect(screen.getByText('沒有待辦事項')).toBeInTheDocument();
 
       // Switch to active filter - should show all todos
-      const activeFilterAgain = screen.getByText('未完成 (5)');
+      const activeFilterAgain = screen.getByTestId('filter-active');
       await user.click(activeFilterAgain);
 
       expect(screen.queryByText('沒有待辦事項')).not.toBeInTheDocument();
@@ -190,8 +190,8 @@ describe('Filter and Statistics Integration Tests', () => {
       expect(screen.getByText('0%')).toBeInTheDocument();
 
       // Add todos and verify statistics update
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Add 4 todos
       const todos = ['任務A', '任務B', '任務C', '任務D'];
@@ -237,8 +237,8 @@ describe('Filter and Statistics Integration Tests', () => {
       const user = userEvent.setup();
       render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Test with 3 todos (33.33% increments)
       for (let i = 1; i <= 3; i++) {
@@ -282,8 +282,8 @@ describe('Filter and Statistics Integration Tests', () => {
       const mockConfirm = jest.fn(() => true);
       Object.defineProperty(window, 'confirm', { value: mockConfirm });
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Add 5 todos
       for (let i = 1; i <= 5; i++) {
@@ -329,8 +329,8 @@ describe('Filter and Statistics Integration Tests', () => {
       const user = userEvent.setup();
       render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Add 2 todos
       await user.type(input, '原始任務1');
@@ -377,8 +377,8 @@ describe('Filter and Statistics Integration Tests', () => {
       const user = userEvent.setup();
       render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Add 6 todos
       for (let i = 1; i <= 6; i++) {
@@ -399,7 +399,7 @@ describe('Filter and Statistics Integration Tests', () => {
       expect(screen.getByText('67%')).toBeInTheDocument();
 
       // Switch to "Active" filter
-      const activeFilter = screen.getByText('未完成 (2)');
+      const activeFilter = screen.getByTestId('filter-active');
       await user.click(activeFilter);
 
       // Statistics should remain the same
@@ -409,7 +409,7 @@ describe('Filter and Statistics Integration Tests', () => {
       expect(screen.getByText('67%')).toBeInTheDocument();
 
       // Switch to "Completed" filter
-      const completedFilter = screen.getByText('已完成 (4)');
+      const completedFilter = screen.getByTestId('filter-completed');
       await user.click(completedFilter);
 
       // Statistics should still remain the same
@@ -423,8 +423,8 @@ describe('Filter and Statistics Integration Tests', () => {
       const user = userEvent.setup();
       render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Add 4 todos
       for (let i = 1; i <= 4; i++) {
@@ -438,7 +438,7 @@ describe('Filter and Statistics Integration Tests', () => {
       await user.click(checkboxes[1]);
 
       // Switch to active filter
-      const activeFilter = screen.getByText('未完成 (2)');
+      const activeFilter = screen.getByTestId('filter-active');
       await user.click(activeFilter);
 
       // Complete one more todo from the active view
@@ -451,7 +451,7 @@ describe('Filter and Statistics Integration Tests', () => {
       expect(screen.getByText('已完成 (3)')).toBeInTheDocument();
 
       // Switch to completed filter
-      const completedFilter = screen.getByText('已完成 (3)');
+      const completedFilter = screen.getByTestId('filter-completed');
       await user.click(completedFilter);
 
       // Uncomplete one todo from the completed view
@@ -468,8 +468,8 @@ describe('Filter and Statistics Integration Tests', () => {
       const user = userEvent.setup();
       render(<TodoApp />);
 
-      const input = screen.getByPlaceholderText('輸入新的待辦事項...');
-      const addButton = screen.getByText('新增');
+      const input = screen.getByPlaceholderText('新增待辦事項...');
+      const addButton = screen.getByRole('button', { name: '新增待辦事項' });
 
       // Add and complete 2 todos
       await user.type(input, '已完成任務1');
@@ -483,7 +483,7 @@ describe('Filter and Statistics Integration Tests', () => {
       await user.click(checkboxes[1]);
 
       // Switch to completed filter
-      const completedFilter = screen.getByText('已完成 (2)');
+      const completedFilter = screen.getByTestId('filter-completed');
       await user.click(completedFilter);
 
       // Add a new todo while in completed filter
@@ -499,7 +499,7 @@ describe('Filter and Statistics Integration Tests', () => {
       expect(screen.queryByText('新的未完成任務')).not.toBeInTheDocument();
 
       // Switch to all filter to see the new todo
-      const allFilter = screen.getByText('全部 (3)');
+      const allFilter = screen.getByTestId('filter-all');
       await user.click(allFilter);
 
       expect(screen.getByText('新的未完成任務')).toBeInTheDocument();

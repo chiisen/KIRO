@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FilterType } from '../../types/todo';
 import { useTodos } from '../../hooks/useTodos';
 import './TodoFilter.css';
@@ -28,8 +28,9 @@ const FILTER_BUTTONS: FilterButton[] = [
 /**
  * TodoFilter component for filtering todos by status
  * Provides buttons to switch between all, active, and completed todos
+ * Optimized with React.memo to prevent unnecessary re-renders
  */
-export const TodoFilter: React.FC<TodoFilterProps> = ({ className = '' }) => {
+const TodoFilterComponent: React.FC<TodoFilterProps> = ({ className = '' }) => {
   const { filter, setFilter, stats } = useTodos();
 
   const handleFilterChange = (newFilter: FilterType) => {
@@ -81,5 +82,11 @@ export const TodoFilter: React.FC<TodoFilterProps> = ({ className = '' }) => {
     </div>
   );
 };
+
+/**
+ * Memoized TodoFilter component
+ * Only re-renders when className prop changes
+ */
+export const TodoFilter = memo(TodoFilterComponent);
 
 export default TodoFilter;

@@ -3,13 +3,18 @@ import { TodoForm } from '../TodoForm';
 import { TodoList } from '../TodoList';
 import { TodoFilter } from '../TodoFilter';
 import { TodoStats } from '../TodoStats';
+import { usePerformanceTracking } from '../../utils/performance';
 import './TodoApp.css';
 
 /**
  * Main TodoApp component that provides the overall layout and structure
  * Integrates TodoProvider to provide global state to all child components
+ * Includes performance tracking for development
  */
 export function TodoApp() {
+  // Track performance in development mode
+  usePerformanceTracking('TodoApp');
+  
   return (
     <TodoProvider>
       <div className="todo-app">

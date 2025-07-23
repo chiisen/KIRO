@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTodos } from '../../hooks/useTodos';
 import { TodoItem } from '../TodoItem';
 import './TodoList.css';
@@ -13,8 +13,9 @@ export interface TodoListProps {
 /**
  * TodoList container component
  * Renders the list of filtered todos with empty state handling
+ * Optimized with React.memo to prevent unnecessary re-renders
  */
-export const TodoList: React.FC<TodoListProps> = ({ className = '' }) => {
+const TodoListComponent: React.FC<TodoListProps> = ({ className = '' }) => {
   const { filteredTodos, filter } = useTodos();
 
   // Handle empty state
@@ -55,5 +56,11 @@ export const TodoList: React.FC<TodoListProps> = ({ className = '' }) => {
     </div>
   );
 };
+
+/**
+ * Memoized TodoList component
+ * Only re-renders when className prop changes
+ */
+export const TodoList = memo(TodoListComponent);
 
 export default TodoList;
